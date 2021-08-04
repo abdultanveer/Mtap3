@@ -25,12 +25,14 @@ class HeadlinesFragment : Fragment(), AdapterView.OnItemClickListener {
     private var param2: String? = null
     private lateinit var listview: ListView
 
+    lateinit var onHeadlinesClickListener : OnHeadlinesClickListener;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        onHeadlinesClickListener = activity as OnHeadlinesClickListener //wiring
     }
 
     override fun onCreateView(
@@ -66,5 +68,12 @@ class HeadlinesFragment : Fragment(), AdapterView.OnItemClickListener {
 
     override fun onItemClick(adapterView: AdapterView<*>?, row: View?, position: Int, rowId: Long) {
         Toast.makeText(activity, adapterView?.getItemAtPosition(position).toString(),Toast.LENGTH_SHORT).show()
+        onHeadlinesClickListener.onHeadlineclick(adapterView?.getItemAtPosition(position).toString())//pressed
+    }
+
+
+
+    interface OnHeadlinesClickListener{
+        fun onHeadlineclick(headline: String)
     }
 }
