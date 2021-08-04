@@ -15,6 +15,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class NewsDetailsFrag extends Fragment {
     TextView headlineTextView;
+    String headline = "";
+
+    public NewsDetailsFrag() {
+    }
+
     @Override
     public void onAttach(@NonNull @NotNull Context context) {
         super.onAttach(context);
@@ -24,16 +29,24 @@ public class NewsDetailsFrag extends Fragment {
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       headline = getArguments().getString("hl");
+        //headline = savedInstanceState.getString("hl");
     }
 
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
-    public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull @NotNull LayoutInflater inflater,
+                             @Nullable @org.jetbrains.annotations.Nullable
+                                     ViewGroup container,
+                             @Nullable @org.jetbrains.annotations.Nullable Bundle arguments) {
         View view =inflater.inflate(R.layout.frag_news_details,container,false);
         headlineTextView = view.findViewById(R.id.tvNewsDetails);
+        headlineTextView.setText(headline);
         return  view;
     }
+
+
 
     void setHeadlineTv(String headline){
         headlineTextView.setText(headline);
