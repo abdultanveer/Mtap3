@@ -1,6 +1,7 @@
 package com.abdul.mtap3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.content.SharedPreferences;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.abdul.mtap3.databinding.ActivityDaggerBinding;
+import com.abdul.mtap3.databinding.ActivityMainBinding;
 import com.abdul.mtap3.di.DaggerMyComponent;
 import com.abdul.mtap3.di.MyComponent;
 import com.abdul.mtap3.di.SharedPrefModule;
@@ -23,13 +26,25 @@ public class DaggerActivity extends AppCompatActivity implements View.OnClickLis
     private MyComponent myComponent;
     @Inject
     SharedPreferences sharedPreferences;
+    ActivityDaggerBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dagger);
+        //setContentView(R.layout.activity_dagger);
+         //val myName: MyName = MyName("Aleks Haecky")
 
-        initViews();
+        /*private lateinit var binding:
+        ActivityMainBinding*/
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_dagger);
+        MyName myName = new MyName("abdul","ansari");
+        binding.setUrName(myName);
+
+
+
+
+
+        //initViews();
         myComponent = DaggerMyComponent.builder().sharedPrefModule(new SharedPrefModule(this)).build();
         myComponent.inject(this);
 
